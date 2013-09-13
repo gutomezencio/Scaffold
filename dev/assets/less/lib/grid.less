@@ -1,0 +1,142 @@
+/* ==========================================================================
+    Grid
+   ========================================================================== */
+
+
+/*  Grid Formula
+   ========================================================================== */
+
+/* Grid Sizes */
+@columns: 12;
+@column-width: 69;
+@gutter-width: 12;
+
+@total-width: 100%;
+
+@gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) - @gutter-width;
+
+.row { .cf }
+
+.width(@x, @columns: @columns) {
+    width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width);
+}
+
+.margin-left(@x: 1, @columns: @columns) {
+    margin-left: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width*2) / @gridsystem-width);
+}
+
+.padding-left(@x: 1, @columns: @columns) {
+    padding-left: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width*2) / @gridsystem-width);
+}
+
+.margin-right(@x: 1, @columns: @columns) {
+    margin-right: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width);
+}
+
+.padding-right(@x: 1, @columns: @columns) {
+    padding-right: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width);
+}
+
+
+
+/*  Columns - Elastic Gutters
+   ========================================================================== */
+
+.column {
+    float: left;
+
+    &.one    { .width(01) }
+    &.two    { .width(02) }
+    &.three  { .width(03) }
+    &.four   { .width(04) }
+    &.five   { .width(05) }
+    &.six    { .width(06) }
+    &.seven  { .width(07) }
+    &.eight  { .width(08) }
+    &.nine   { .width(09) }
+    &.ten    { .width(10) }
+    &.eleven { .width(11) }
+    &.twelve { .width(12) }
+
+    + .column { margin-left: @total-width*(@gutter-width/@gridsystem-width) }
+
+    &.centered {
+        margin: 0 auto !important;
+        float: none;
+    }
+}
+
+
+
+/*  Columns - Fixed Gutters
+   ========================================================================== */
+
+.column-fixed {
+    @column-width: 80;
+    @gutter-width: 0;
+
+    @gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) - @gutter-width;
+
+    .width(@x, @columns: @columns) {
+        width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width);
+    }
+
+    &.one    { .width(01) }
+    &.two    { .width(02) }
+    &.three  { .width(03) }
+    &.four   { .width(04) }
+    &.five   { .width(05) }
+    &.six    { .width(06) }
+    &.seven  { .width(07) }
+    &.eight  { .width(08) }
+    &.nine   { .width(09) }
+    &.ten    { .width(10) }
+    &.eleven { .width(11) }
+    &.twelve { .width(12) }
+
+    + .column {
+        margin-left: 0;
+        padding-left: 15px;
+    }
+
+    &.centered {
+        padding-left: 0;
+    }
+}
+
+
+
+/*  Table Columns
+   ========================================================================== */
+
+.data-table {
+    width: 100%;
+
+    .one    { .width(01) }
+    .two    { .width(02) }
+    .three  { .width(03) }
+    .four   { .width(04) }
+    .five   { .width(05) }
+    .six    { .width(06) }
+    .seven  { .width(07) }
+    .eight  { .width(08) }
+    .nine   { .width(09) }
+    .ten    { .width(10) }
+    .eleven { .width(11) }
+    .twelve { .width(12) }
+}
+
+
+
+/*  Table Layout - Centering vertical
+   ========================================================================== */
+
+.d-table {
+    width: 100%;
+    display: table;
+}
+
+.d-cell {
+    display: table-cell;
+    vertical-align: middle;
+}

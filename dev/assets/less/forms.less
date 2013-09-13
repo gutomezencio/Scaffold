@@ -1,0 +1,184 @@
+/* ==========================================================================
+    Forms Styles
+   ========================================================================== */
+
+
+/*  Overrides
+   ========================================================================== */
+
+::-webkit-input-placeholder {
+    color: #b1b1b1;
+}
+
+:-moz-placeholder {
+    color: #b1b1b1;
+}
+
+::-moz-placeholder {
+    color: #b1b1b1;
+}
+
+:-ms-input-placeholder {
+    color: #b1b1b1;
+}
+
+
+
+/*  Fields
+   ========================================================================== */
+
+.form {
+    margin-bottom: 1em;
+
+    fieldset {
+        margin: 0;
+        padding: .35em 0 .75em;
+        border: none;
+    }
+
+    legend {
+        padding: .3em .3em .3em 0;
+        margin-bottom: 1em;
+        display: block;
+        font-size: 125%;
+    }
+
+    label {
+        margin: 0.5em 0 0.2em;
+        display: block;
+        font-size: 90%;
+    }
+
+    input[type="color"],
+    input[type="date"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="email"],
+    input[type="file"],
+    input[type="month"],
+    input[type="number"],
+    input[type="password"],
+    input[type="range"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="text"],
+    input[type="time"],
+    input[type="url"],
+    input[type="week"],
+    textarea,
+    select {
+        padding: 0.3em 0.4em;
+        display: inline-block;
+        border-radius: 3px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    select {
+
+
+        &[multiple] {
+            height: auto;
+        }
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+
+    }
+
+    .form-inline-checkbox,
+    .form-inline-radio {
+        input,
+        label {
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+        }
+
+        input {
+            top: 1px;
+        }
+    }
+}
+
+
+
+/*  Layouts
+   ========================================================================== */
+
+.form-aligned {
+    input,
+    textarea,
+    select {
+        vertical-align: middle;
+    }
+
+    .form-field {
+        margin-bottom: 0.5em;
+    }
+
+    label {
+        width: 10em;
+        margin: 0 1em 0 0;
+        display: inline-block;
+        text-align: right;
+        vertical-align: middle;
+    }
+
+    .form-inline-checkbox,
+    .form-inline-radio {
+        margin-left: 10em;
+
+        label {
+            width: auto;
+        }
+    }
+
+    .form-button-holder {
+        margin: 1.5em 0 0 10em;
+    }
+}
+
+.form-stacked {
+    legend {
+        margin-bottom: .4em;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="url"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="week"],
+    input[type="number"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    select,
+    label,
+    textarea {
+        display: block;
+    }
+}
+
+
+
+/*  Validations
+   ========================================================================== */
+
+.field-error {
+
+}
