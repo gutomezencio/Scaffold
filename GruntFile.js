@@ -323,6 +323,22 @@ module.exports = function(grunt) {
                     dest: '<%= config.build.assets %>/css',
                     flatten: true
                 }]
+            },
+            filesStaging: {
+                files: [{
+                    expand: true,
+                    src: ['<%= config.dev.path %>/{,*/}*.{png,jpg,jpeg,txt,json,gif,htaccess}'],
+                    dest: '<%= config.staging.path %>/',
+                    flatten: true
+                }]
+            },
+            filesBuild: {
+                files: [{
+                    expand: true,
+                    src: ['<%= config.dev.path %>/{,*/}*.{png,jpg,jpeg,txt,json,gif,htaccess}'],
+                    dest: '<%= config.build.path %>/',
+                    flatten: true
+                }]
             }
         },
         watch: {
@@ -384,6 +400,7 @@ module.exports = function(grunt) {
         'copy:scriptsStaging',
         'copy:swfStaging',
         'copy:imgStaging',
+        'copy:filesStaging',
         'htmlbuild:staging',
         'concat',
         'less:staging',
@@ -396,6 +413,7 @@ module.exports = function(grunt) {
         'copy:scriptsBuild',
         'copy:swfBuild',
         'copy:imgBuild',
+        'copy:filesBuild',
         'uglify',
         'svgmin',
         'less:build',
