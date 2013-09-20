@@ -27,7 +27,7 @@ module.exports = function(grunt) {
             ]
         };
 
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -147,6 +147,28 @@ module.exports = function(grunt) {
                     //deleteAfterEncoding: true,
                     maxImageSize: 20480
                 }
+            }
+        },
+        responsive_images: {
+            build: {
+                options: {
+                    sizes: [{
+                        width: 240,
+                        name: 'small'
+                    }, {
+                        width: 320,
+                        name: 'standard'
+                    }, {
+                        width: 768,
+                        name: 'tablet'
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.dev.assets %>/img',
+                    src: ['**/*.{jpg,gif,png}'],
+                    dest: '<%= config.build.assets %>/img'
+                }]
             }
         },
         svgmin: {
@@ -354,7 +376,10 @@ module.exports = function(grunt) {
                     '<%= config.dev.assets %>/less/**/*.less',
                     '<%= config.dev.assets %>/less/*.less'
                 ],
-                tasks: ['less:staging']
+                tasks: ['less:staging'],
+                options: {
+                    livereload: true,
+                }
             },
             css: {
                 files: [
@@ -414,7 +439,7 @@ module.exports = function(grunt) {
         'copy:swfBuild',
         'copy:imgBuild',
         'copy:filesBuild',
-        'uglify',
+        'responsive_images',
         'svgmin',
         'less:build',
         'cmq',
@@ -424,6 +449,7 @@ module.exports = function(grunt) {
         'imageEmbed',
         'csso',
         'imagemin',
+        'uglify',
         'htmlbuild:build',
         'cachebreaker',
         'htmlmin',
