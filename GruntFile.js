@@ -414,7 +414,10 @@ module.exports = function(grunt) {
                     '<%= config.dev.path %>/**/*.html',
                     '<%= config.dev.path %>/*.html'
                 ],
-                tasks: ['htmlbuild:staging']
+                tasks: ['htmlbuild:staging'],
+                options: {
+                    livereload: true,
+                }
             }
         }
     });
