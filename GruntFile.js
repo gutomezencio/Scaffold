@@ -149,28 +149,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        responsive_images: {
-            build: {
-                options: {
-                    sizes: [{
-                        width: 240,
-                        name: 'small'
-                    }, {
-                        width: 320,
-                        name: 'standard'
-                    }, {
-                        width: 768,
-                        name: 'tablet'
-                    }]
-                },
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.dev.assets %>/img',
-                    src: ['**/*.{jpg,gif,png}'],
-                    dest: '<%= config.build.assets %>/img'
-                }]
-            }
-        },
         svgmin: {
             build: {
                 files: [{
@@ -378,7 +356,7 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['less:staging'],
                 options: {
-                    livereload: true,
+                    livereload: true
                 }
             },
             css: {
@@ -416,7 +394,22 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['htmlbuild:staging'],
                 options: {
-                    livereload: true,
+                    livereload: true
+                }
+            }
+        },
+        connect: {
+            options: {
+                port: 9000,
+                livereload: 35729,
+                hostname: '0.0.0.0'
+            },
+            livereload: {
+                options: {
+                    open: true,
+                    base: [
+                        config.staging.path
+                    ]
                 }
             }
         }
@@ -432,6 +425,7 @@ module.exports = function(grunt) {
         'htmlbuild:staging',
         'concat',
         'less:staging',
+        'connect:livereload',
         'watch'
     ]);
 
@@ -442,7 +436,6 @@ module.exports = function(grunt) {
         'copy:swfBuild',
         'copy:imgBuild',
         'copy:filesBuild',
-        'responsive_images',
         'svgmin',
         'less:build',
         'cmq',
