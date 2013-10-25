@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             project: [
                 config.dev.assets + '/js/main.js'
             ],
-            plugins: [
+            comp: [
                 config.dev.assets + '/js/comp/plugins/*.js'
             ]
         };
@@ -32,11 +32,19 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         config: config,
-        uglify_files: js.plugins.concat(js.project),
+        uglify_files: js.comp.concat(js.project),
         banner: '/*! <%= pkg.projectName %> - v<%= pkg.version %> - by <%= pkg.developers %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n',
         clean: {
-            staging: ['<%= config.staging.path %>'],
-            build: ['<%= config.build.path %>'],
+            staging: [
+                '<%= config.staging.path %>',
+                '!<%= config.staging.path %>/.git*',
+                '!<%= config.build.path %>/**/.svn'
+            ],
+            build: [
+                '<%= config.build.path %>',
+                '!<%= config.build.path %>/.git*',
+                '!<%= config.build.path %>/**/.svn'
+            ],
             joycss: ['<%= config.build.assets %>/css/main.min.joy']
         },
         less: {
@@ -144,7 +152,7 @@ module.exports = function(grunt) {
                 src: ['<%= config.build.assets %>/css/main.min.css'],
                 dest: '<%= config.build.assets %>/css/main.min.css',
                 options: {
-                    //deleteAfterEncoding: true,
+                    deleteAfterEncoding: true,
                     maxImageSize: 20480
                 }
             }
@@ -156,6 +164,11 @@ module.exports = function(grunt) {
                     cwd: '<%= config.dev.assets %>/svg',
                     src: ['**/*.svg'],
                     dest: '<%= config.build.assets %>/svg'
+                }, {
+                    expand: true,
+                    cwd: '<%= config.dev.assets %>/font',
+                    src: ['**/*.svg'],
+                    dest: '<%= config.build.assets %>/font'
                 }]
             }
         },
@@ -187,25 +200,27 @@ module.exports = function(grunt) {
                     removeComments: true,
                     collapseWhitespace: true,
                     collapseBooleanAttributes: true,
-                    removeRedundantAttributes: true,
+                    removeRedundantAttributes: false,
                     removeEmptyAttributes: true,
                     removeOptionalTags: true
                 },
-                files: {
-                    '<%= config.build.path %>/index.html': '<%= config.build.path %>/index.html'
-                }
+                expand: true,
+                cwd: '<%= config.build.path %>',
+                src: ['**/*.html'],
+                dest: '<%= config.build.path %>'
             }
         },
         htmlcompressor: {
             build: {
-                files: {
-                    '<%= config.build.path %>/index.html': '<%= config.build.path %>/index.html'
-                },
                 options: {
                     type: 'html',
                     preserveServerScript: true,
                     compressJs: true
-                }
+                },
+                expand: true,
+                cwd: '<%= config.build.path %>',
+                src: ['**/*.html'],
+                dest: '<%= config.build.path %>'
             }
         },
         cmq: {
