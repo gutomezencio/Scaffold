@@ -99,6 +99,19 @@ module.exports = function(grunt) {
                 dest: '<%= config.staging.assets %>/js/main.min.js',
             }
         },
+        modernizr: {
+            'devFile': '<%= config.dev.assets %>/js/comp/lib/modernizr.min.js',
+            'outputFile': '<%= config.dev.assets %>/js/comp/lib/modernizr.min.js',
+            'matchCommunityTests': true,
+            'files': [
+                '<%= uglify_files %>',
+                '<%= config.dev.assets %>/js/comp/*'
+            ],
+            'excludeFiles': [
+                '<%= config.dev.assets %>/js/comp/modernizr.min.js'
+            ],
+            'tests' : [],
+        },
         joycss: {
             build: {
                 options: {
@@ -286,7 +299,7 @@ module.exports = function(grunt) {
             scriptsBuild: {
                 files: [{
                     expand: true,
-                    src: ['<%= config.dev.assets %>/js/comp/lib/*'],
+                    src: ['<%= config.dev.assets %>/js/comp/lib/*!(modernizr.min.js)'],
                     dest: '<%= config.build.assets %>/js/comp/lib',
                     flatten: true
                 }]
@@ -461,6 +474,7 @@ module.exports = function(grunt) {
         'csso',
         'imagemin',
         'uglify',
+        'modernizr',
         'htmlbuild:build',
         'cachebreaker',
         'htmlmin',
