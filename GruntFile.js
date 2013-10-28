@@ -58,15 +58,13 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            files: js.project,
+            files: [
+                'Gruntfile.js',
+                '<%= config.dev.assets %>/js/{,*/}*.js',
+                '!<%= config.dev.assets %>/js/vendor/*'
+            ],
             options: {
-                globals: {
-                    jQuery: true,
-                    console: true,
-                    module: true
-                },
-                bitwise: true,
-                expr: true
+                jshintrc: '.jshintrc'
             }
         },
         uglify: {
