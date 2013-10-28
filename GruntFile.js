@@ -368,13 +368,19 @@ module.exports = function(grunt) {
                     ]
                 }
             }
+        },
+        concurrent: {
+            staging: [
+                'less:staging',
+                'copy:staging'
+            ]
         }
     });
 
     grunt.registerTask('default', [
         'clean:staging',
+        'concurrent:staging',
         'htmlbuild:staging',
-        'less:staging',
         'connect:livereload',
         'watch'
     ]);
