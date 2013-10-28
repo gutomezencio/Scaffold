@@ -58,6 +58,13 @@ module.exports = function(grunt) {
                 }
             }
         },
+        cssmin: {
+            options: {
+                banner: '<%= banner %>',
+                keepSpecialComments: 0,
+                report: 'gzip'
+            }
+        },
         jshint: {
             files: [
                 'Gruntfile.js',
@@ -201,7 +208,8 @@ module.exports = function(grunt) {
                 assetsDirs: ['<%= config.dev.path %>'],
                 dirs: ['<%= config.build.path %>']
             },
-            html: ['<%= config.build.path %>/{,*/}*.html']
+            html: ['<%= config.build.path %>/{,*/}*.html'],
+            css: ['<%= config.build.assets %>/css/{,*/}*.css']
         },
         htmlmin: {
             build: {
@@ -382,6 +390,7 @@ module.exports = function(grunt) {
         'useminPrepare',
         'concat',
         'uglify',
+        'cssmin',
         'usemin',
         'cachebreaker',
         'htmlmin',
