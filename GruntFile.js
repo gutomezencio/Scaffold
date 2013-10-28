@@ -287,100 +287,37 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            fontsStaging: {
+            staging: {
                 files: [{
                     expand: true,
-                    src: ['<%= config.dev.assets %>/font/*'],
-                    dest: '<%= config.staging.assets %>/font/',
-                    flatten: true
+                    //dot: true,
+                    cwd: '<%= config.dev.assets %>',
+                    dest: '<%= config.staging.assets %>',
+                    src: [
+                        '*.{ico,png,txt,json}',
+                        '.htaccess',
+                        'img/**/*',
+                        'swf/**/*',
+                        'css/**/*',
+                        'js/**/*',
+                        'font/**/*'
+                    ]
                 }]
             },
-            fontsBuild: {
+            build: {
                 files: [{
                     expand: true,
-                    src: ['<%= config.dev.assets %>/font/*'],
-                    dest: '<%= config.build.assets %>/font/',
-                    flatten: true
-                }]
-            },
-            scriptsStaging: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.assets %>/js/vendor/lib/*'],
-                    dest: '<%= config.staging.assets %>/js/vendor/lib',
-                    flatten: true
-                }]
-            },
-            scriptsBuild: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.assets %>/js/vendor/lib/*!(modernizr.min.js)'],
-                    dest: '<%= config.build.assets %>/js/vendor/lib',
-                    flatten: true
-                }]
-            },
-            swfStaging: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.assets %>/swf/*.swf'],
-                    dest: '<%= config.staging.assets %>/swf',
-                    flatten: true
-                }]
-            },
-            swfBuild: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.assets %>/swf/*.swf'],
-                    dest: '<%= config.build.assets %>/swf',
-                    flatten: true
-                }]
-            },
-            imgStaging: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.assets %>/img/*'],
-                    dest: '<%= config.staging.assets %>/img',
-                    flatten: true
-                }]
-            },
-            imgBuild: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.assets %>/img/*'],
-                    dest: '<%= config.build.assets %>/img',
-                    flatten: true
-                }]
-            },
-            cssStaging: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.assets %>/css/*'],
-                    dest: '<%= config.staging.assets %>/css',
-                    flatten: true
-                }]
-            },
-            cssBuild: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.assets %>/css/*'],
-                    dest: '<%= config.build.assets %>/css',
-                    flatten: true
-                }]
-            },
-            filesStaging: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.path %>/{,*/}*.{png,jpg,jpeg,txt,json,gif,htaccess}'],
-                    dest: '<%= config.staging.path %>/',
-                    flatten: true
-                }]
-            },
-            filesBuild: {
-                files: [{
-                    expand: true,
-                    src: ['<%= config.dev.path %>/{,*/}*.{png,jpg,jpeg,txt,json,gif,htaccess}'],
-                    dest: '<%= config.build.path %>/',
-                    flatten: true
+                    //dot: true,
+                    cwd: '<%= config.dev.assets %>',
+                    dest: '<%= config.build.assets %>',
+                    src: [
+                        '*.{ico,png,txt,json}',
+                        '.htaccess',
+                        'img/**/*',
+                        'swf/**/*',
+                        'css/**/*',
+                        'font/**/*'
+                    ]
                 }]
             }
         },
