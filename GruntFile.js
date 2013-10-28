@@ -37,7 +37,8 @@ module.exports = function(grunt) {
                 '!<%= config.build.path %>/**/.git',
                 '!<%= config.build.path %>/**/.svn'
             ],
-            joycss: ['<%= config.build.assets %>/css/main.min.joy']
+            joycss: ['<%= config.build.assets %>/css/main.min.joy'],
+            tmp: ['.tmp']
         },
         less: {
             staging: {
@@ -385,6 +386,7 @@ module.exports = function(grunt) {
         'cachebreaker',
         'htmlmin',
         'htmlcompressor',
-        'clean:joycss'
+        'clean:joycss',
+        'clean:tmp'
     ]);
 };
