@@ -102,7 +102,7 @@ module.exports = function(grunt) {
         },
         modernizr: {
             'devFile': '<%= config.dev.assets %>/js/vendor/lib/modernizr.min.js',
-            'outputFile': '<%= config.dev.assets %>/js/vendor/lib/modernizr.min.js',
+            'outputFile': '<%= config.build.assets %>/js/vendor/lib/modernizr.min.js',
             'matchCommunityTests': true,
             'files': [
                 '<%= uglify_files %>',
