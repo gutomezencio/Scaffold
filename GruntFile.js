@@ -106,6 +106,7 @@ module.exports = function(grunt) {
             'matchCommunityTests': true,
             'files': [
                 '<%= uglify_files %>',
+                '<%= config.build.assets %>/css/{,*/}*.css',
                 '<%= config.dev.assets %>/js/vendor/*'
             ],
             'excludeFiles': [
