@@ -36,13 +36,13 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.projectName %> - v<%= pkg.version %> - by <%= pkg.developers %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n',
         clean: {
             staging: [
-                '<%= config.staging.path %>',
-                '!<%= config.staging.path %>/.git*',
-                '!<%= config.build.path %>/**/.svn'
+                '<%= config.staging.path %>/**/*',
+                '!<%= config.staging.path %>/**/.git',
+                '!<%= config.staging.path %>/**/.svn'
             ],
             build: [
-                '<%= config.build.path %>',
-                '!<%= config.build.path %>/.git*',
+                '<%= config.build.path %>/**/*',
+                '!<%= config.build.path %>/**/.git',
                 '!<%= config.build.path %>/**/.svn'
             ],
             joycss: ['<%= config.build.assets %>/css/main.min.joy']
