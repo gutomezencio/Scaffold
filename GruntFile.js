@@ -330,43 +330,18 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['jshint', 'concat']
             },
-            less: {
+            css: {
                 files: [
-                    '<%= config.dev.assets %>/less/**/*.less',
-                    '<%= config.dev.assets %>/less/*.less'
+                    '<%= config.dev.assets %>/less/**/*',
+                    '<%= config.dev.assets %>/css/**/*',
+                    '<%= config.dev.assets %>/img/**/*',
+                    '<%= config.dev.assets %>/svg/**/*',
+                    '<%= config.dev.assets %>/swf/**/*',
                 ],
-                tasks: ['less:staging'],
+                tasks: ['concurrent:staging'],
                 options: {
                     livereload: true
                 }
-            },
-            css: {
-                files: [
-                    '<%= config.dev.assets %>/css/**/*.css',
-                    '<%= config.dev.assets %>/css/*.css'
-                ],
-                tasks: ['copy:cssStaging']
-            },
-            img: {
-                files: [
-                    '<%= config.dev.assets %>/img/**/*',
-                    '<%= config.dev.assets %>/img/*'
-                ],
-                tasks: ['copy:imgStaging']
-            },
-            svg: {
-                files: [
-                    '<%= config.dev.assets %>/svg/**/*.svg',
-                    '<%= config.dev.assets %>/svg/*.svg'
-                ],
-                tasks: ['copy:svgStaging']
-            },
-            swf: {
-                files: [
-                    '<%= config.dev.assets %>/swf/**/*',
-                    '<%= config.dev.assets %>/swf/*'
-                ],
-                tasks: ['copy:swfStaging']
             },
             html: {
                 files: [
