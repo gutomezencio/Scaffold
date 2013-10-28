@@ -373,6 +373,12 @@ module.exports = function(grunt) {
             staging: [
                 'less:staging',
                 'copy:staging'
+            ],
+            build: [
+                'usemin',
+                'cachebreaker',
+                'htmlmin',
+                'htmlcompressor'
             ]
         }
     });
@@ -402,10 +408,7 @@ module.exports = function(grunt) {
         'useminPrepare',
         'concat',
         'uglify',
-        'usemin',
-        'cachebreaker',
-        'htmlmin',
-        'htmlcompressor',
+        'concurrent:build',
         'clean:joycss'
     ]);
 };
