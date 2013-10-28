@@ -18,14 +18,6 @@ module.exports = function(grunt) {
                 partials: 'build/partials'
             }
         },
-        js = {
-            project: [
-                config.dev.assets + '/js/main.js'
-            ],
-            vendor: [
-                config.dev.assets + '/js/vendor/plugins/*.js'
-            ]
-        };
 
     require('load-grunt-tasks')(grunt);
     require('time-grunt')(grunt);
