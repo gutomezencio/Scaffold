@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(grunt) {
-    var config = {
+    var scaffold = {
         dev: {
             path: 'dev',
             assets: 'dev/assets',
@@ -24,20 +24,20 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        config: config,
+        scaffold: scaffold,
         banner: '/*! <%= pkg.projectName %> - v<%= pkg.version %> - by <%= pkg.developers %> - <%= grunt.template.today("dd/mm/yyyy") %> */\n',
         clean: {
             staging: [
-                '<%= config.staging.path %>/**/*',
-                '!<%= config.staging.path %>/**/.git',
-                '!<%= config.staging.path %>/**/.svn'
+                '<%= scaffold.staging.path %>/**/*',
+                '!<%= scaffold.staging.path %>/**/.git',
+                '!<%= scaffold.staging.path %>/**/.svn'
             ],
             build: [
-                '<%= config.build.path %>/**/*',
-                '!<%= config.build.path %>/**/.git',
-                '!<%= config.build.path %>/**/.svn'
+                '<%= scaffold.build.path %>/**/*',
+                '!<%= scaffold.build.path %>/**/.git',
+                '!<%= scaffold.build.path %>/**/.svn'
             ],
-            joycss: ['<%= config.build.assets %>/css/main.min.joy'],
+            joycss: ['<%= scaffold.build.assets %>/css/main.min.joy'],
             tmp: [
                 '.tmp',
                 '.css'
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
         less: {
             staging: {
                 files: {
-                    '<%= config.staging.assets %>/css/main.min.css': '<%= config.dev.assets %>/less/main.less'
+                    '<%= scaffold.staging.assets %>/css/main.min.css': '<%= scaffold.dev.assets %>/less/main.less'
                 },
                 options: {
                     yuicompress: false
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
             },
             build: {
                 files: {
-                    '<%= config.build.assets %>/css/main.min.css': '<%= config.dev.assets %>/less/main.less'
+                    '<%= scaffold.build.assets %>/css/main.min.css': '<%= scaffold.dev.assets %>/less/main.less'
                 },
                 options: {
                     yuicompress: false
@@ -71,8 +71,8 @@ module.exports = function(grunt) {
         jshint: {
             files: [
                 'Gruntfile.js',
-                '<%= config.dev.assets %>/js/{,*/}*.js',
-                '!<%= config.dev.assets %>/js/vendor/*'
+                '<%= scaffold.dev.assets %>/js/{,*/}*.js',
+                '!<%= scaffold.dev.assets %>/js/vendor/*'
             ],
             options: {
                 jshintrc: '.jshintrc'
@@ -92,15 +92,15 @@ module.exports = function(grunt) {
             }
         },
         modernizr: {
-            'devFile': '<%= config.dev.assets %>/js/vendor/lib/modernizr.min.js',
-            'outputFile': '<%= config.build.assets %>/js/vendor/lib/modernizr.min.js',
+            'devFile': '<%= scaffold.dev.assets %>/js/vendor/lib/modernizr.min.js',
+            'outputFile': '<%= scaffold.build.assets %>/js/vendor/lib/modernizr.min.js',
             'matchCommunityTests': true,
             'files': [
-                '<%= config.build.assets %>/css/{,*/}*.css',
-                '<%= config.dev.assets %>/js/**/*'
+                '<%= scaffold.build.assets %>/css/{,*/}*.css',
+                '<%= scaffold.dev.assets %>/js/**/*'
             ],
             'excludeFiles': [
-                '<%= config.dev.assets %>/js/vendor/modernizr.min.js'
+                '<%= scaffold.dev.assets %>/js/vendor/modernizr.min.js'
             ],
             'tests' : [],
         },
@@ -110,22 +110,22 @@ module.exports = function(grunt) {
                     layout: 'auto',
                     alpha: true
                 },
-                cwd: '<%= config.build.assets %>/css/',
+                cwd: '<%= scaffold.build.assets %>/css/',
                 src: ['**'],
-                dest: '<%= config.build.assets %>/css/'
+                dest: '<%= scaffold.build.assets %>/css/'
             }
         },
         rename: {
             main: {
                 files: [{
-                    src: ['<%= config.build.assets %>/img/main.min-sprite.png'],
-                    dest: '<%= config.build.assets %>/img/main-sprite.png'
+                    src: ['<%= scaffold.build.assets %>/img/main.min-sprite.png'],
+                    dest: '<%= scaffold.build.assets %>/img/main-sprite.png'
                 }]
             }
         },
         replace: {
             sprite: {
-                src: ['<%= config.build.assets %>/css/*.css'],
+                src: ['<%= scaffold.build.assets %>/css/*.css'],
                 overwrite: true,
                 replacements: [{
                     from: 'main.min-sprite.png',
@@ -133,7 +133,7 @@ module.exports = function(grunt) {
                 }]
             },
             escSprite: {
-                src: ['<%= config.build.assets %>/css/*.css'],
+                src: ['<%= scaffold.build.assets %>/css/*.css'],
                 overwrite: true,
                 replacements: [{
                     from: '?esc)',
@@ -147,15 +147,15 @@ module.exports = function(grunt) {
             },
             build: {
                 expand: true,
-                cwd: '<%= config.build.assets %>/img',
+                cwd: '<%= scaffold.build.assets %>/img',
                 src: '{,*/}*.{png,jpg,jpeg}',
-                dest: '<%= config.build.assets %>/img'
+                dest: '<%= scaffold.build.assets %>/img'
             }
         },
         imageEmbed: {
             build: {
-                src: ['<%= config.build.assets %>/css/main.min.css'],
-                dest: '<%= config.build.assets %>/css/main.min.css',
+                src: ['<%= scaffold.build.assets %>/css/main.min.css'],
+                dest: '<%= scaffold.build.assets %>/css/main.min.css',
                 options: {
                     deleteAfterEncoding: true,
                     maxImageSize: 20480
@@ -166,53 +166,53 @@ module.exports = function(grunt) {
             build: {
                 files: [{
                     expand: true,
-                    cwd: '<%= config.dev.assets %>/svg',
+                    cwd: '<%= scaffold.dev.assets %>/svg',
                     src: ['**/*.svg'],
-                    dest: '<%= config.build.assets %>/svg'
+                    dest: '<%= scaffold.build.assets %>/svg'
                 }, {
                     expand: true,
-                    cwd: '<%= config.dev.assets %>/font',
+                    cwd: '<%= scaffold.dev.assets %>/font',
                     src: ['**/*.svg'],
-                    dest: '<%= config.build.assets %>/font'
+                    dest: '<%= scaffold.build.assets %>/font'
                 }]
             }
         },
         htmlbuild: {
             staging: {
-                src: '<%= config.dev.path %>/*.html',
-                dest: '<%= config.staging.path %>/',
+                src: '<%= scaffold.dev.path %>/*.html',
+                dest: '<%= scaffold.staging.path %>/',
                 options: {
                     sections: {
-                        header: '<%= config.dev.partials %>/header.html',
-                        footer: '<%= config.dev.partials %>/footer.html'
+                        header: '<%= scaffold.dev.partials %>/header.html',
+                        footer: '<%= scaffold.dev.partials %>/footer.html'
                     }
                 }
             },
             build: {
-                src: '<%= config.dev.path %>/*.html',
-                dest: '<%= config.build.path %>/',
+                src: '<%= scaffold.dev.path %>/*.html',
+                dest: '<%= scaffold.build.path %>/',
                 options: {
                     sections: {
-                        header: '<%= config.dev.partials %>/header.html',
-                        footer: '<%= config.dev.partials %>/footer.html'
+                        header: '<%= scaffold.dev.partials %>/header.html',
+                        footer: '<%= scaffold.dev.partials %>/footer.html'
                     }
                 }
             }
         },
         useminPrepare: {
             options: {
-                dest: '<%= config.build.path %>',
-                root: '<%= config.dev.path %>'
+                dest: '<%= scaffold.build.path %>',
+                root: '<%= scaffold.dev.path %>'
             },
-            html: '<%= config.build.path %>/index.html'
+            html: '<%= scaffold.build.path %>/index.html'
         },
         usemin: {
             options: {
-                assetsDirs: ['<%= config.dev.path %>'],
-                dirs: ['<%= config.build.path %>']
+                assetsDirs: ['<%= scaffold.dev.path %>'],
+                dirs: ['<%= scaffold.build.path %>']
             },
-            html: ['<%= config.build.path %>/{,*/}*.html'],
-            css: ['<%= config.build.assets %>/css/{,*/}*.css']
+            html: ['<%= scaffold.build.path %>/{,*/}*.html'],
+            css: ['<%= scaffold.build.assets %>/css/{,*/}*.css']
         },
         htmlmin: {
             build: {
@@ -225,9 +225,9 @@ module.exports = function(grunt) {
                     removeOptionalTags: true
                 },
                 expand: true,
-                cwd: '<%= config.build.path %>',
+                cwd: '<%= scaffold.build.path %>',
                 src: ['**/*.html'],
-                dest: '<%= config.build.path %>'
+                dest: '<%= scaffold.build.path %>'
             }
         },
         htmlcompressor: {
@@ -238,9 +238,9 @@ module.exports = function(grunt) {
                     compressJs: true
                 },
                 expand: true,
-                cwd: '<%= config.build.path %>',
+                cwd: '<%= scaffold.build.path %>',
                 src: ['**/*.html'],
-                dest: '<%= config.build.path %>'
+                dest: '<%= scaffold.build.path %>'
             }
         },
         cmq: {
@@ -249,7 +249,7 @@ module.exports = function(grunt) {
                     log: 'true'
                 },
                 files: {
-                    '<%= config.build.assets %>/css/': ['<%= config.build.assets %>/css/*.css']
+                    '<%= scaffold.build.assets %>/css/': ['<%= scaffold.build.assets %>/css/*.css']
                 }
             }
         },
@@ -260,7 +260,7 @@ module.exports = function(grunt) {
                     banner: '<%= banner %>'
                 },
                 files: {
-                    '<%= config.build.assets %>/css/main.min.css': ['<%= config.build.assets %>/css/main.min.css']
+                    '<%= scaffold.build.assets %>/css/main.min.css': ['<%= scaffold.build.assets %>/css/main.min.css']
                 }
             }
         },
@@ -268,13 +268,13 @@ module.exports = function(grunt) {
             js: {
                 'asset_url': 'assets/js/main.min.js',
                 files: {
-                    src: '<%= config.build.path %>/*.html'
+                    src: '<%= scaffold.build.path %>/*.html'
                 }
             },
             css: {
                 'asset_url': 'assets/css/main.min.css',
                 files: {
-                    src: '<%= config.build.path %>/*.html'
+                    src: '<%= scaffold.build.path %>/*.html'
                 }
             }
         },
@@ -283,8 +283,8 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '<%= config.dev.assets %>',
-                    dest: '<%= config.staging.assets %>',
+                    cwd: '<%= scaffold.dev.assets %>',
+                    dest: '<%= scaffold.staging.assets %>',
                     src: [
                         '*.{ico,png,txt,json}',
                         '.htaccess',
@@ -300,8 +300,8 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '<%= config.dev.assets %>',
-                    dest: '<%= config.build.assets %>',
+                    cwd: '<%= scaffold.dev.assets %>',
+                    dest: '<%= scaffold.build.assets %>',
                     src: [
                         '*.{ico,png,txt,json}',
                         '.htaccess',
@@ -316,8 +316,8 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: [
-                    '<%= config.dev.assets %>/js/*.js',
-                    '<%= config.dev.assets %>/js/**/*.js'
+                    '<%= scaffold.dev.assets %>/js/*.js',
+                    '<%= scaffold.dev.assets %>/js/**/*.js'
                 ],
                 tasks: ['jshint', 'concat'],
                 options: {
@@ -326,11 +326,11 @@ module.exports = function(grunt) {
             },
             css: {
                 files: [
-                    '<%= config.dev.assets %>/less/**/*',
-                    '<%= config.dev.assets %>/css/**/*',
-                    '<%= config.dev.assets %>/img/**/*',
-                    '<%= config.dev.assets %>/svg/**/*',
-                    '<%= config.dev.assets %>/swf/**/*',
+                    '<%= scaffold.dev.assets %>/less/**/*',
+                    '<%= scaffold.dev.assets %>/css/**/*',
+                    '<%= scaffold.dev.assets %>/img/**/*',
+                    '<%= scaffold.dev.assets %>/svg/**/*',
+                    '<%= scaffold.dev.assets %>/swf/**/*',
                 ],
                 tasks: ['concurrent:staging'],
                 options: {
@@ -339,8 +339,8 @@ module.exports = function(grunt) {
             },
             html: {
                 files: [
-                    '<%= config.dev.path %>/**/*.html',
-                    '<%= config.dev.path %>/*.html'
+                    '<%= scaffold.dev.path %>/**/*.html',
+                    '<%= scaffold.dev.path %>/*.html'
                 ],
                 tasks: ['htmlbuild:staging'],
                 options: {
@@ -358,7 +358,7 @@ module.exports = function(grunt) {
                 options: {
                     open: true,
                     base: [
-                        config.staging.path
+                        scaffold.staging.path
                     ]
                 }
             }
