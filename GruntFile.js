@@ -73,10 +73,12 @@ module.exports = function(grunt) {
                 mangle: {
                     except: ['jQuery', 'Backbone']
                 }
+            }
         },
         concat: {
             options: {
                 separator: ';'
+            }
         },
         modernizr: {
             'devFile': '<%= config.dev.assets %>/js/vendor/lib/modernizr.min.js',
@@ -252,13 +254,13 @@ module.exports = function(grunt) {
         },
         cachebreaker: {
             js: {
-                asset_url: 'assets/js/main.min.js',
+                'asset_url': 'assets/js/main.min.js',
                 files: {
                     src: '<%= config.build.path %>/*.html'
                 }
             },
             css: {
-                asset_url: 'assets/css/main.min.css',
+                'asset_url': 'assets/css/main.min.css',
                 files: {
                     src: '<%= config.build.path %>/*.html'
                 }
