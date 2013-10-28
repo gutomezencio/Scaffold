@@ -83,9 +83,8 @@ module.exports = function(grunt) {
             'outputFile': '<%= config.build.assets %>/js/vendor/lib/modernizr.min.js',
             'matchCommunityTests': true,
             'files': [
-                '<%= uglify_files %>',
                 '<%= config.build.assets %>/css/{,*/}*.css',
-                '<%= config.dev.assets %>/js/vendor/*'
+                '<%= config.dev.assets %>/js/**/*'
             ],
             'excludeFiles': [
                 '<%= config.dev.assets %>/js/vendor/modernizr.min.js'
