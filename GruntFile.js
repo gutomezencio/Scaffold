@@ -38,7 +38,10 @@ module.exports = function(grunt) {
                 '!<%= config.build.path %>/**/.svn'
             ],
             joycss: ['<%= config.build.assets %>/css/main.min.joy'],
-            tmp: ['.tmp']
+            tmp: [
+                '.tmp',
+                '.css'
+            ]
         },
         less: {
             staging: {
