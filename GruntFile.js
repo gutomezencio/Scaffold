@@ -22,8 +22,8 @@ module.exports = function(grunt) {
             project: [
                 config.dev.assets + '/js/main.js'
             ],
-            comp: [
-                config.dev.assets + '/js/comp/plugins/*.js'
+            vendor: [
+                config.dev.assets + '/js/vendor/plugins/*.js'
             ]
         };
 
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         config: config,
-        uglify_files: js.comp.concat(js.project),
+        uglify_files: js.vendor.concat(js.project),
         banner: '/*! <%= pkg.projectName %> - v<%= pkg.version %> - by <%= pkg.developers %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n',
         clean: {
             staging: [
@@ -100,15 +100,15 @@ module.exports = function(grunt) {
             }
         },
         modernizr: {
-            'devFile': '<%= config.dev.assets %>/js/comp/lib/modernizr.min.js',
-            'outputFile': '<%= config.dev.assets %>/js/comp/lib/modernizr.min.js',
+            'devFile': '<%= config.dev.assets %>/js/vendor/lib/modernizr.min.js',
+            'outputFile': '<%= config.dev.assets %>/js/vendor/lib/modernizr.min.js',
             'matchCommunityTests': true,
             'files': [
                 '<%= uglify_files %>',
-                '<%= config.dev.assets %>/js/comp/*'
+                '<%= config.dev.assets %>/js/vendor/*'
             ],
             'excludeFiles': [
-                '<%= config.dev.assets %>/js/comp/modernizr.min.js'
+                '<%= config.dev.assets %>/js/vendor/modernizr.min.js'
             ],
             'tests' : [],
         },
@@ -291,16 +291,16 @@ module.exports = function(grunt) {
             scriptsStaging: {
                 files: [{
                     expand: true,
-                    src: ['<%= config.dev.assets %>/js/comp/lib/*'],
-                    dest: '<%= config.staging.assets %>/js/comp/lib',
+                    src: ['<%= config.dev.assets %>/js/vendor/lib/*'],
+                    dest: '<%= config.staging.assets %>/js/vendor/lib',
                     flatten: true
                 }]
             },
             scriptsBuild: {
                 files: [{
                     expand: true,
-                    src: ['<%= config.dev.assets %>/js/comp/lib/*!(modernizr.min.js)'],
-                    dest: '<%= config.build.assets %>/js/comp/lib',
+                    src: ['<%= config.dev.assets %>/js/vendor/lib/*!(modernizr.min.js)'],
+                    dest: '<%= config.build.assets %>/js/vendor/lib',
                     flatten: true
                 }]
             },
