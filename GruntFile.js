@@ -73,21 +73,10 @@ module.exports = function(grunt) {
                 mangle: {
                     except: ['jQuery', 'Backbone']
                 }
-            }/*,
-            build: {
-                files: {
-                    '<%= config.build.assets %>/js/main.min.js': '<%= uglify_files %>'
-                }
-            }*/
         },
         concat: {
             options: {
                 separator: ';'
-            }/*,
-            staging: {
-                src: ['<%= uglify_files %>'],
-                dest: '<%= config.staging.assets %>/js/main.min.js',
-            }*/
         },
         modernizr: {
             'devFile': '<%= config.dev.assets %>/js/vendor/lib/modernizr.min.js',
