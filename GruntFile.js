@@ -2,22 +2,22 @@ module.exports = function(grunt) {
     'use strict';
 
     var config = {
-            dev: {
-                path: 'dev',
-                assets: 'dev/assets',
-                partials: 'dev/partials'
-            },
-            staging: {
-                path: 'staging',
-                assets: 'staging/assets',
-                partials: 'staging/partials'
-            },
-            build: {
-                path: 'build',
-                assets: 'build/assets',
-                partials: 'build/partials'
-            }
+        dev: {
+            path: 'dev',
+            assets: 'dev/assets',
+            partials: 'dev/partials'
         },
+        staging: {
+            path: 'staging',
+            assets: 'staging/assets',
+            partials: 'staging/partials'
+        },
+        build: {
+            path: 'build',
+            assets: 'build/assets',
+            partials: 'build/partials'
+        }
+    };
 
     require('load-grunt-tasks')(grunt);
     require('time-grunt')(grunt);
