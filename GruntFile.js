@@ -79,7 +79,7 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
-            options: {
+            /*options: {
                 banner: '<%= banner %>',
                 mangle: {
                     except: ['jQuery', 'Backbone']
@@ -89,16 +89,16 @@ module.exports = function(grunt) {
                 files: {
                     '<%= config.build.assets %>/js/main.min.js': '<%= uglify_files %>'
                 }
-            }
+            }*/
         },
         concat: {
-            options: {
+            /*options: {
                 separator: ';'
             },
             staging: {
                 src: ['<%= uglify_files %>'],
                 dest: '<%= config.staging.assets %>/js/main.min.js',
-            }
+            }*/
         },
         modernizr: {
             'devFile': '<%= config.dev.assets %>/js/vendor/lib/modernizr.min.js',
@@ -207,6 +207,20 @@ module.exports = function(grunt) {
                     }
                 }
             }
+        },
+        useminPrepare: {
+            options: {
+                dest: '<%= config.build.path %>',
+                root: '<%= config.dev.path %>'
+            },
+            html: '<%= config.build.path %>/index.html'
+        },
+        usemin: {
+            options: {
+                assetsDirs: ['<%= config.dev.path %>'],
+                dirs: ['<%= config.build.path %>']
+            },
+            html: ['<%= config.build.path %>/{,*/}*.html']
         },
         htmlmin: {
             build: {
@@ -452,7 +466,6 @@ module.exports = function(grunt) {
         'copy:imgStaging',
         'copy:filesStaging',
         'htmlbuild:staging',
-        'concat',
         'less:staging',
         'connect:livereload',
         'watch'
@@ -474,9 +487,12 @@ module.exports = function(grunt) {
         'imageEmbed',
         'csso',
         'imagemin',
-        'uglify',
         'modernizr',
         'htmlbuild:build',
+        'useminPrepare',
+        'concat',
+        'uglify',
+        'usemin',
         'cachebreaker',
         'htmlmin',
         'htmlcompressor',
