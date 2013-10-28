@@ -79,12 +79,12 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
-            /*options: {
+            options: {
                 banner: '<%= banner %>',
                 mangle: {
                     except: ['jQuery', 'Backbone']
                 }
-            },
+            }/*,
             build: {
                 files: {
                     '<%= config.build.assets %>/js/main.min.js': '<%= uglify_files %>'
@@ -92,9 +92,9 @@ module.exports = function(grunt) {
             }*/
         },
         concat: {
-            /*options: {
+            options: {
                 separator: ';'
-            },
+            }/*,
             staging: {
                 src: ['<%= uglify_files %>'],
                 dest: '<%= config.staging.assets %>/js/main.min.js',
@@ -121,7 +121,7 @@ module.exports = function(grunt) {
                     alpha: true
                 },
                 cwd: '<%= config.build.assets %>/css/',
-                src: ['main.min.css'],
+                src: ['**'],
                 dest: '<%= config.build.assets %>/css/'
             }
         },
@@ -291,7 +291,7 @@ module.exports = function(grunt) {
             staging: {
                 files: [{
                     expand: true,
-                    //dot: true,
+                    dot: true,
                     cwd: '<%= config.dev.assets %>',
                     dest: '<%= config.staging.assets %>',
                     src: [
@@ -308,7 +308,7 @@ module.exports = function(grunt) {
             build: {
                 files: [{
                     expand: true,
-                    //dot: true,
+                    dot: true,
                     cwd: '<%= config.dev.assets %>',
                     dest: '<%= config.build.assets %>',
                     src: [
@@ -373,12 +373,6 @@ module.exports = function(grunt) {
             staging: [
                 'less:staging',
                 'copy:staging'
-            ],
-            build: [
-                'usemin',
-                'cachebreaker',
-                'htmlmin',
-                'htmlcompressor'
             ]
         }
     });
@@ -408,7 +402,10 @@ module.exports = function(grunt) {
         'useminPrepare',
         'concat',
         'uglify',
-        'concurrent:build',
+        'usemin',
+        'cachebreaker',
+        'htmlmin',
+        'htmlcompressor',
         'clean:joycss'
     ]);
 };
