@@ -119,7 +119,7 @@ module.exports = function(grunt) {
                     to: 'main-sprite.png?' + '<%= new Date().getTime() %>'
                 }]
             },
-            esc_sprite: {
+            escSprite: {
                 src: ['<%= config.build.assets %>/css/*.css'],
                 overwrite: true,
                 replacements: [{
