@@ -13,6 +13,4 @@ Desktop.ini
 $RECYCLE.BIN/
 *.sublime-workspace
 .svn/
-build
-staging
 .tmp
