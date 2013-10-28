@@ -373,11 +373,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', [
         'clean:staging',
-        'copy:fontsStaging',
-        'copy:scriptsStaging',
-        'copy:swfStaging',
-        'copy:imgStaging',
-        'copy:filesStaging',
         'htmlbuild:staging',
         'less:staging',
         'connect:livereload',
@@ -386,11 +381,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build', [
         'clean:build',
-        'copy:fontsBuild',
-        'copy:scriptsBuild',
-        'copy:swfBuild',
-        'copy:imgBuild',
-        'copy:filesBuild',
+        'copy:build',
         'svgmin',
         'less:build',
         'cmq',
