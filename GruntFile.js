@@ -316,7 +316,10 @@ module.exports = function(grunt) {
                     '<%= config.dev.assets %>/js/*.js',
                     '<%= config.dev.assets %>/js/**/*.js'
                 ],
-                tasks: ['jshint', 'concat']
+                tasks: ['jshint', 'concat'],
+                options: {
+                    livereload: true
+                }
             },
             css: {
                 files: [
