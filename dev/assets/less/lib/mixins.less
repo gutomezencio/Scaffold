@@ -7,8 +7,6 @@
    ========================================================================== */
 
 .cf {
-    *zoom: 1;
-
     &:before,
     &:after {
         content: " ";
@@ -19,9 +17,16 @@
 }
 
 .ir {
+    background-color: transparent;
+    border: 0;
     overflow: hidden;
-    text-indent: 100%;
-    white-space: nowrap;
+
+    &:before {
+        width: 0;
+        height: 150%;
+        display: block;
+        content: " ";
+    }
 }
 
 
@@ -33,9 +38,10 @@
 
 .clear { clear: both !important }
 
-.hidden { display: none !important }
-
-.visible { display: block !important }
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
 
 .inline-block { display: inline-block }
 
@@ -50,28 +56,30 @@
 
 .visible { display: block !important }
 
-.vh {
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    position: absolute;
-    overflow: hidden;
-    border: 0;
-    clip: rect(0 0 0 0);
+.invisible { visibility: hidden }
 
-    &.focusable:active,
-    &.focusable:focus {
-        width: auto;
-        height: auto;
-        margin: 0;
-        position: static;
-        overflow: visible;
-        clip: auto;
+.vh {
+    width: 1/@em;
+    height: 1/@em;
+    margin: -1/@em;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    clip: rect(0 0 0 0);
+    border: 0;
+
+    &.focusable {
+        &:active,
+        &:focus {
+            width: auto;
+            height: auto;
+            margin: 0;
+            overflow: visible;
+            position: static;
+            clip: auto;
+        }
     }
 }
-
-.invisible { visibility: hidden }
 
 
 
