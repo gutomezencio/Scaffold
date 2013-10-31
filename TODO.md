@@ -4,7 +4,7 @@ Próximos passos pro Scaffold:
 - Não excluir na hora de fazer o clean as pastar .svn e .git [Done]
 - Colocar o JS no HTML e não no GruntFile.js [Done]
 - Criar o Readme completo
-- Comentar o GruntFIle.js
+- Comentar o GruntFile.js
 - Adicionar o arquivo de licenças
 - Padronizar o repositório
 - Criar uma GH Pages
