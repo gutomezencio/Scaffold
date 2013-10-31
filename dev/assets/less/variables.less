@@ -25,10 +25,23 @@
 @base-font-size: 16;
 @em: @base-font-size * 1em;
 
+@font-size-xsmall: @base-font-size * 0.75;
+@font-size-small: @base-font-size * 0.85;
+@font-size-large: @base-font-size * 1.15;
+@font-size-xlarge: @base-font-size * 1.25;
+
 
 
 /*  Color Pressets
    ========================================================================== */
 
-@color-black: #000;
-@color-white: #fff;
+/* Structure */
+
+@color-body-background: #fff;
+@color-body-text: @color-black-70;
+
+
+/* Links */
+
+@color-link: #428bca;
+@color-link-hover: darken(@color-link, 15%);
