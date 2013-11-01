@@ -368,6 +368,18 @@ module.exports = function(grunt) {
                 'less:staging',
                 'copy:staging'
             ]
+        },
+        compress: {
+            build: {
+                options: {
+                    archive: '<%= pkg.name %>.zip',
+                    mode: 'zip',
+                    pretty: true,
+                    level: 7
+                },
+                src: ['<%= scaffold.build.path %>/**'],
+                dest: '/'
+            }
         }
     });
 
@@ -402,6 +414,7 @@ module.exports = function(grunt) {
         'htmlmin',
         'htmlcompressor',
         'clean:joycss',
-        'clean:tmp'
+        'clean:tmp',
+        'compress'
     ]);
 };
