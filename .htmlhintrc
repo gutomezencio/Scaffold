@@ -1,0 +1,16 @@
+{
+    "attr-lowercase": true,
+    "attr-value-double-quotes": true,
+    "attr-value-not-empty": true,
+    "doctype-first": true,
+    "head-script-disabled": true,
+    "id-class-value": "dash",
+    "id-unique": true,
+    "img-alt-require": true,
+    "jshint": true,
+    "spec-char-escape": true,
+    "src-not-empty": true,
+    "style-disabled": true,
+    "tag-pair": true,
+    "tagname-lowercase": true
+}

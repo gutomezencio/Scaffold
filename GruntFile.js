@@ -243,6 +243,15 @@ module.exports = function(grunt) {
                 dest: '<%= scaffold.build.path %>'
             }
         },
+        htmlhint: {
+            build: {
+                options: {
+                    htmlhintrc: '.htmlhintrc',
+                    force: true
+                },
+                src: ['<%= scaffold.staging.path %>/**/*.html']
+            }
+        },
         cmq: {
             build: {
                 options: {
@@ -342,7 +351,7 @@ module.exports = function(grunt) {
                     '<%= scaffold.dev.path %>/**/*.html',
                     '<%= scaffold.dev.path %>/*.html'
                 ],
-                tasks: ['htmlbuild:staging'],
+                tasks: ['htmlbuild:staging', 'htmlhint'],
                 options: {
                     livereload: true
                 }
