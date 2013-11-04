@@ -5,9 +5,10 @@
   "developers": "Marcos Moura, Augusto Mezêncio",
   "version": "0.9.7",
   "author": {
-    "name": "Pontomobi",
-    "url": "http://www.pontomobi.com.br"
+    "name": "Marcos Moura",
+    "url": "http://marcosmoura.com"
   },
+  "private": true,
   "devDependencies": {
     "css-parse": "~1.5.2",
     "grunt": "~0.4.1",
