@@ -8,6 +8,10 @@
     "name": "Marcos Moura",
     "url": "http://marcosmoura.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/marcosmoura/Scaffold.git"
+  },
   "private": true,
   "devDependencies": {
     "css-parse": "~1.5.2",
