@@ -8,14 +8,14 @@ Utilizamos o Grunt por ser uma ferramenta mais popular para este fim e por possu
 
 ## Instalação
 
-Basicamente, para utilizar o Scaffold é necessário instalar os seguintes componentes na sua máquina:
+Basicamente, para utilizar o Scaffold é necessário instalar as seguintes dependências na sua máquina:
 
 - Node.js
 - GD Library
 - node-gd
 - node-gyp
 - less
-(No caso de usuários de Mac OS x recomendasse a instalação do Homebrew para agilizar a resolução das dependências: http://brew.sh/)
+- No caso de usuários de Mac OS x recomendasse a instalação do Homebrew para agilizar a resolução das dependências: http://brew.sh/
 
 #### Para instalar as dependencias acima, utilize:
 
