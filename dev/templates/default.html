@@ -10,16 +10,18 @@
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="description" content="Sample project">
+        <meta name="description" content="{{description}}">
 
-        <title>Sample project</title>
+        <title>{{title}}</title>
         <link rel="author" href="humans.txt">
 
         <!-- build:css(build) assets/css/main.min.css -->
         <link rel="stylesheet" href="assets/css/main.min.css">
         <!-- endbuild -->
 
-        <script src="assets/js/vendor/lib/modernizr.min.js"></script>
+        <!-- build:js assets/js/vendor/lib/modernizr.min.js -->
+        <script src="assets/js/vendor/lib/modernizr.js"></script>
+        <!-- endbuild -->
     </head>
 
     <body>
@@ -27,3 +29,22 @@
             <header class="main-header">
 
             </header>
+
+            {{> body }}
+
+            <footer class="main-footer">
+
+            </footer>
+        </div>
+
+        <!-- Facebook Root -->
+        <div id="fb-root"></div>
+
+        <!-- Site Scripts -->
+        <!-- build:js assets/js/main.min.js -->
+        <script src="assets/js/vendor/lib/jquery-1.10.2.js"></script>
+        <script src="assets/js/vendor/lib/fastclick.js"></script>
+        <script src="assets/js/main.js"></script>
+        <!-- endbuild -->
+    </body>
+</html>

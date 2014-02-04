@@ -5,26 +5,28 @@ module.exports = function(grunt) {
         dev: {
             path: 'dev',
             assets: 'dev/assets',
-            partials: 'dev/partials'
+            partials: 'dev/partials',
+            templates: 'dev/templates'
         },
         staging: {
             path: 'staging',
-            assets: 'staging/assets',
-            partials: 'staging/partials'
+            assets: 'staging/assets'
         },
         build: {
             path: 'build',
-            assets: 'build/assets',
-            partials: 'build/partials'
+            assets: 'build/assets'
         }
     };
 
     require('load-grunt-tasks')(grunt);
     require('time-grunt')(grunt);
 
+    grunt.loadNpmTasks('assemble');
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         scaffold: scaffold,
+        timestamp: '<%= new Date().getTime() %>',
         banner: '/*! <%= pkg.projectName %> - v<%= pkg.version %> - by <%= pkg.developers %> - <%= grunt.template.today("dd/mm/yyyy") %> */\n',
         clean: {
             staging: [
@@ -92,15 +94,15 @@ module.exports = function(grunt) {
             }
         },
         modernizr: {
-            'devFile': '<%= scaffold.dev.assets %>/js/vendor/lib/modernizr.min.js',
-            'outputFile': '<%= scaffold.build.assets %>/js/vendor/lib/modernizr.min.js',
+            'devFile': '<%= scaffold.dev.assets %>/js/vendor/lib/modernizr.js',
+            'outputFile': '<%= scaffold.build.assets %>/js/vendor/lib/modernizr.js',
             'matchCommunityTests': true,
             'files': [
                 '<%= scaffold.build.assets %>/css/{,*/}*.css',
                 '<%= scaffold.dev.assets %>/js/**/*'
             ],
             'excludeFiles': [
-                '<%= scaffold.dev.assets %>/js/vendor/modernizr.min.js'
+                '<%= scaffold.dev.assets %>/js/vendor/modernizr.js'
             ],
             'tests' : [],
         },
@@ -116,7 +118,7 @@ module.exports = function(grunt) {
             }
         },
         rename: {
-            main: {
+            sprites: {
                 files: [{
                     src: ['<%= scaffold.build.assets %>/img/main.min-sprite.png'],
                     dest: '<%= scaffold.build.assets %>/img/main-sprite.png'
@@ -129,15 +131,23 @@ module.exports = function(grunt) {
                 overwrite: true,
                 replacements: [{
                     from: 'main.min-sprite.png',
-                    to: 'main-sprite.png?' + '<%= new Date().getTime() %>'
+                    to: 'main-sprite.png?' + '<%= timestamp %>'
                 }]
             },
-            escSprite: {
+            joycss: {
                 src: ['<%= scaffold.build.assets %>/css/*.css'],
                 overwrite: true,
                 replacements: [{
                     from: '?esc)',
-                    to: '?<%= new Date().getTime() %>)'
+                    to: '?<%= timestamp %>)'
+                }]
+            },
+            hashmap: {
+                src: ['.tmp/hashmap.json'],
+                overwrite: true,
+                replacements: [{
+                    from: 'build/',
+                    to: 'dev/'
                 }]
             }
         },
@@ -154,8 +164,10 @@ module.exports = function(grunt) {
         },
         imageEmbed: {
             build: {
-                src: ['<%= scaffold.build.assets %>/css/main.min.css'],
-                dest: '<%= scaffold.build.assets %>/css/main.min.css',
+                expand: true,
+                cwd: '<%= scaffold.build.assets %>/css',
+                src: '{,*/}*.css',
+                dest: '<%= scaffold.build.assets %>/css',
                 options: {
                     deleteAfterEncoding: true,
                     maxImageSize: 20480
@@ -165,54 +177,68 @@ module.exports = function(grunt) {
         svgmin: {
             build: {
                 files: [{
+                    dot: true,
                     expand: true,
-                    cwd: '<%= scaffold.dev.assets %>/svg',
-                    src: ['**/*.svg'],
-                    dest: '<%= scaffold.build.assets %>/svg'
-                }, {
-                    expand: true,
-                    cwd: '<%= scaffold.dev.assets %>/font',
-                    src: ['**/*.svg'],
-                    dest: '<%= scaffold.build.assets %>/font'
+                    cwd: '<%= scaffold.dev.assets %>',
+                    dest: '<%= scaffold.build.assets %>',
+                    src: ['**/*.svg']
                 }]
             }
         },
-        htmlbuild: {
+        assemble: {
+            options: {
+                layoutdir: '<%= scaffold.dev.templates %>',
+                layoutext: '.html',
+                layout: 'default',
+                partials: ['<%= scaffold.dev.partials %>/**/*.html'],
+                flatten: true
+            },
             staging: {
-                src: '<%= scaffold.dev.path %>/*.html',
-                dest: '<%= scaffold.staging.path %>/',
-                options: {
-                    sections: {
-                        header: '<%= scaffold.dev.partials %>/header.html',
-                        footer: '<%= scaffold.dev.partials %>/footer.html'
-                    }
-                }
+                expand: true,
+                cwd: '<%= scaffold.dev.path %>',
+                dest: '<%= scaffold.staging.path %>',
+                src: [
+                    '**/*.html',
+                    '!templates/**/*',
+                    '!partials/**/*'
+                ]
             },
             build: {
-                src: '<%= scaffold.dev.path %>/*.html',
-                dest: '<%= scaffold.build.path %>/',
-                options: {
-                    sections: {
-                        header: '<%= scaffold.dev.partials %>/header.html',
-                        footer: '<%= scaffold.dev.partials %>/footer.html'
-                    }
-                }
+                expand: true,
+                cwd: '<%= scaffold.dev.path %>',
+                dest: '<%= scaffold.build.path %>',
+                src: [
+                    '**/*.html',
+                    '!templates/**/*',
+                    '!partials/**/*'
+                ]
             }
         },
         useminPrepare: {
             options: {
                 dest: '<%= scaffold.build.path %>',
-                root: '<%= scaffold.dev.path %>'
+                root: '<%= scaffold.dev.path %>',
+                flow: {
+                    steps: {
+                        'js': ['concat', 'uglifyjs'],
+                        'css': ['concat']
+                    },
+                    post: []
+                }
             },
             html: '<%= scaffold.build.path %>/index.html'
         },
         usemin: {
             options: {
                 assetsDirs: ['<%= scaffold.dev.path %>'],
-                dirs: ['<%= scaffold.build.path %>']
+                dirs: ['<%= scaffold.build.path %>'],
+                revmap: '.tmp/hashmap.json'
             },
-            html: ['<%= scaffold.build.path %>/{,*/}*.html'],
-            css: ['<%= scaffold.build.assets %>/css/{,*/}*.css']
+            html: [
+                '<%= scaffold.build.path %>/**/*.html',
+                '!<%= scaffold.build.path %>/templates/**/*',
+                '!<%= scaffold.build.path %>/partials/**/*'
+            ]
         },
         htmlmin: {
             build: {
@@ -258,7 +284,7 @@ module.exports = function(grunt) {
                     log: 'true'
                 },
                 files: {
-                    '<%= scaffold.build.assets %>/css/': ['<%= scaffold.build.assets %>/css/*.css']
+                    '<%= scaffold.build.assets %>/css/': ['<%= scaffold.build.assets %>/css/**/*.css']
                 }
             }
         },
@@ -273,18 +299,22 @@ module.exports = function(grunt) {
                 }
             }
         },
-        cachebreaker: {
+        hash: {
+            options: {
+                mapping: '.tmp/hashmap.json',
+                srcBasePath: '',
+                destBasePath: '<%= scaffold.build.path %>/',
+                flatten: false
+            },
             js: {
-                'asset_url': 'assets/js/main.min.js',
-                files: {
-                    src: '<%= scaffold.build.path %>/*.html'
-                }
+                src: [
+                    '<%= scaffold.build.assets %>/**/*.js'
+                ],
             },
             css: {
-                'asset_url': 'assets/css/main.min.css',
-                files: {
-                    src: '<%= scaffold.build.path %>/*.html'
-                }
+                src: [
+                    '<%= scaffold.build.assets %>/**/*.css'
+                ],
             }
         },
         copy: {
@@ -292,16 +322,14 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '<%= scaffold.dev.assets %>',
-                    dest: '<%= scaffold.staging.assets %>',
+                    cwd: '<%= scaffold.dev.path %>',
+                    dest: '<%= scaffold.staging.path %>',
                     src: [
-                        '*.{ico,png,txt,json}',
+                        '*.{ico,png,gif,txt,json}',
                         '.htaccess',
-                        'img/**/*',
-                        'swf/**/*',
-                        'css/**/*',
-                        'js/**/*',
-                        'font/**/*'
+                        'assets/**/*',
+                        '!assets/**/*.{gitignore,svn,DS_Store}',
+                        '!assets/{less,coffee,resources}/**'
                     ]
                 }]
             },
@@ -309,15 +337,14 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '<%= scaffold.dev.assets %>',
-                    dest: '<%= scaffold.build.assets %>',
+                    cwd: '<%= scaffold.dev.path %>',
+                    dest: '<%= scaffold.build.path %>',
                     src: [
-                        '*.{ico,png,txt,json}',
+                        '*.{ico,png,gif,txt,json}',
                         '.htaccess',
-                        'img/**/*',
-                        'swf/**/*',
-                        'css/**/*',
-                        'font/**/*'
+                        'assets/**/*',
+                        '!assets/**/*.{gitignore,svn,DS_Store}',
+                        '!assets/{less,coffee,resources}/**'
                     ]
                 }]
             }
@@ -325,7 +352,6 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: [
-                    '<%= scaffold.dev.assets %>/js/*.js',
                     '<%= scaffold.dev.assets %>/js/**/*.js'
                 ],
                 tasks: ['jshint', 'concat'],
@@ -333,25 +359,33 @@ module.exports = function(grunt) {
                     livereload: true
                 }
             },
-            css: {
+            stylesheets: {
                 files: [
                     '<%= scaffold.dev.assets %>/less/**/*',
-                    '<%= scaffold.dev.assets %>/css/**/*',
-                    '<%= scaffold.dev.assets %>/img/**/*',
-                    '<%= scaffold.dev.assets %>/svg/**/*',
-                    '<%= scaffold.dev.assets %>/swf/**/*',
+                    '<%= scaffold.dev.assets %>/css/**/*'
                 ],
-                tasks: ['concurrent:staging'],
+                tasks: ['less:staging', 'copy:staging'],
                 options: {
                     livereload: true
                 }
             },
-            html: {
+            files: {
+                files: [
+                    '<%= scaffold.dev.assets %>/**/*',
+                    '!<%= scaffold.dev.assets %>/less/**/*',
+
+                ],
+                tasks: ['copy:staging'],
+                options: {
+                    livereload: true
+                }
+            },
+            pages: {
                 files: [
                     '<%= scaffold.dev.path %>/**/*.html',
                     '<%= scaffold.dev.path %>/*.html'
                 ],
-                tasks: ['htmlbuild:staging', 'htmlhint'],
+                tasks: ['assemble:staging', 'htmlhint'],
                 options: {
                     livereload: true
                 }
@@ -372,12 +406,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        concurrent: {
-            staging: [
-                'less:staging',
-                'copy:staging'
-            ]
-        },
         compress: {
             build: {
                 options: {
@@ -394,8 +422,9 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', [
         'clean:staging',
-        'concurrent:staging',
-        'htmlbuild:staging',
+        'copy:staging',
+        'less:staging',
+        'assemble:staging',
         'connect:livereload',
         'watch'
     ]);
@@ -408,18 +437,20 @@ module.exports = function(grunt) {
         'cmq',
         'joycss',
         'rename',
-        'replace',
+        'replace:sprite',
+        'replace:joycss',
         'imageEmbed',
         'csso',
         'imagemin',
         'modernizr',
-        'htmlbuild:build',
+        'assemble:build',
         'useminPrepare',
         'concat',
         'uglify',
         'cssmin',
+        'hash',
+        'replace:hashmap',
         'usemin',
-        'cachebreaker',
         'htmlmin',
         'htmlcompressor',
         'clean:joycss',

@@ -3,21 +3,6 @@
    ========================================================================== */
 
 
-/*  Common Variables
-   ========================================================================== */
-
-var SITEURL  = window.location.protocol + '//' + window.location.host,
-    PATHNAME = window.location.pathname,
-    stopEvent = function(event) {
-        (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
-
-        if(event.stopPropagation) {
-            event.stopPropagation();
-        }
-    };
-
-
-
 /*  Async Loading third-party scripts
    ========================================================================== */
 

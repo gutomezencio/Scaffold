@@ -59,11 +59,11 @@
     &.twelve { .width(12) }
 
     + .column { margin-left: @total-width*(@gutter-width/@gridsystem-width) }
+}
 
-    &.centered {
-        margin: 0 auto !important;
-        float: none;
-    }
+.column-centered {
+    margin: 0 auto !important;
+    float: none;
 }
 
 
@@ -99,7 +99,7 @@
         padding-left: 15px;
     }
 
-    &.centered {
+    &.column-centered {
         padding-left: 0;
     }
 }

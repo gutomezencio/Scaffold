@@ -17,5 +17,11 @@
     "undef": true,
     "trailing": true,
     "smarttabs": true,
-    "jquery": true
+    "jquery": true,
+    "globals": {
+        "Modernizr": true,
+        "jQuery": true,
+        "console": true,
+        "FB": true
+    }
 }

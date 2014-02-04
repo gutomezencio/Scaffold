@@ -98,3 +98,5 @@ Então teremos:
     .GruntFile.js  
     README.md  
     TODO.md  
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/14ca58d6ccfe566a4af7538c4171dd0d "githalytics.com")](http://githalytics.com/marcosmoura/scaffold)
