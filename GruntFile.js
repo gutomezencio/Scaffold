@@ -417,6 +417,23 @@ module.exports = function(grunt) {
                 src: ['<%= scaffold.build.path %>/**'],
                 dest: '/'
             }
+        },
+        favicons: {
+            options: {
+                trueColor: true,
+                precomposed: true,
+                appleTouchBackgroundColor: "#ffffff",
+                coast: true,
+                windowsTile: true,
+                tileBlackWhite: false,
+                tileColor: "auto",
+                html: '<%= scaffold.dev.templates %>/default.html',
+                HTMLPrefix: ""
+            },
+            icons: {
+                src: '<%= scaffold.dev.path %>/assets/img/favicon.png',
+                dest: '<%= scaffold.staging.path %>'
+            }
         }
     });
 
