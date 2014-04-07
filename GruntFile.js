@@ -240,6 +240,16 @@ module.exports = function(grunt) {
                 '!<%= scaffold.build.path %>/partials/**/*'
             ]
         },
+        processhtml: {
+            options: {
+                //
+            },
+            dist: {
+                files: {
+                    '<%= scaffold.build.path %>/**/*.html': ['<%= scaffold.build.path %>/**/*.html']
+                }
+            }
+        },
         htmlmin: {
             build: {
                 options: {
@@ -364,10 +374,7 @@ module.exports = function(grunt) {
                     '<%= scaffold.dev.assets %>/less/**/*',
                     '<%= scaffold.dev.assets %>/css/**/*'
                 ],
-                tasks: ['less:staging', 'copy:staging'],
-                options: {
-                    livereload: true
-                }
+                tasks: ['less:staging', 'copy:staging']
             },
             files: {
                 files: [
@@ -418,21 +425,15 @@ module.exports = function(grunt) {
                 dest: '/'
             }
         },
-        favicons: {
-            options: {
-                trueColor: true,
-                precomposed: true,
-                appleTouchBackgroundColor: "#ffffff",
-                coast: true,
-                windowsTile: true,
-                tileBlackWhite: false,
-                tileColor: "auto",
-                html: '<%= scaffold.dev.templates %>/default.html',
-                HTMLPrefix: ""
-            },
-            icons: {
-                src: '<%= scaffold.dev.path %>/assets/img/favicon.png',
-                dest: '<%= scaffold.staging.path %>'
+        browserSync: {
+            staging: {
+                bsFiles: {
+                    src : '<%= scaffold.staging.assets %>/css/**/*.css'
+                },
+                options: {
+                    watchTask: true,
+                    host: '0.0.0.0'
+                }
             }
         }
     });
@@ -443,6 +444,7 @@ module.exports = function(grunt) {
         'less:staging',
         'assemble:staging',
         'connect:livereload',
+        'browserSync',
         'watch'
     ]);
 
@@ -468,6 +470,7 @@ module.exports = function(grunt) {
         'hash',
         'replace:hashmap',
         'usemin',
+        //'processhtml',
         'htmlmin',
         'htmlcompressor',
         'clean:joycss',

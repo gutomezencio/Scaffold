@@ -16,6 +16,7 @@ Escolhemos o Grunt por ser uma ferramenta mais popular para este fim, por possui
 - Embed de fonts com base64
 - Organização e otimização do CSS
 - Minificação de CSS
+- Inject de CSS sem reload da página
 - Otimização de imagens
 - Build de HTML (uso de includes e templates)
 - Unificação de arquivos CSS
